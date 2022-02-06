@@ -10,7 +10,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['db/*', 'td/*', 'bot/*', 'best_practices/*'],
+  ignorePatterns: [],
   rules: {
     'strict': 0,
     'max-len': [2, 190, 2],

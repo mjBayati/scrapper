@@ -1,4 +1,4 @@
-const {Builder, WebDriver} = require('selenium-webdriver');
+// const {Builder, WebDriver} = require('selenium-webdriver');
 
 // const {
 //     Worker, isMainThread, parentPort, workerData
@@ -27,6 +27,6 @@ const {Builder, WebDriver} = require('selenium-webdriver');
 //     })();
 // }
 module.exports = async function fetchData(url, driver) {
-    await driver.get(url);
-    return driver.getPageSource();
+  await driver.get(url);
+  return driver.getPageSource();
 };

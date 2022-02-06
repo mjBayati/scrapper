@@ -16,6 +16,5 @@ yarn start
 ```
 
 ### Usage
-
 Add your desired monthly page url from [accuweather](https://www.accuweather.com) to .env file.
 The output.json will have result json file.
