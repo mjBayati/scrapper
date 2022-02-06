@@ -1,0 +1,20 @@
+node_modules/
+.env
+db/**/*
+.vscode/
+
+# intellij
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+#package manager
+package-lock.json
+
+
+#yarn
+yarn.lock
+
+td/

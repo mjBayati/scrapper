@@ -1,0 +1,5 @@
+1. construct crawler to crawl the web page
+2. use cheerio to extract info from targetted web page
+3. construct classes to be familier with each web page
+4. add data aggregator for each web page
+5. generate utils to export to csv or excel
