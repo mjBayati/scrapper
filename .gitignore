@@ -13,6 +13,7 @@ out/
 #package manager
 package-lock.json
 
+geckodriver-v0.30.0-linux32.tar.gz
 
 #yarn
 yarn.lock
