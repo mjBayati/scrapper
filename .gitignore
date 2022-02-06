@@ -14,6 +14,7 @@ out/
 package-lock.json
 
 geckodriver-v0.30.0-linux32.tar.gz
+output.json
 
 #yarn
 yarn.lock

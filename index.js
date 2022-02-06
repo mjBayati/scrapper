@@ -1,14 +1,17 @@
 const {Builder, WebDriver} = require('selenium-webdriver');
-
+const dotenv = require('dotenv');
 const Monthly = require('./scrappers/Monthly');
 const fileWriter = require('./util/file');
+
+dotenv.config();
 
 (async function run() {
     let driver = await new Builder().forBrowser('firefox').build();
     try {
+        const url = new URL(process.env.URL);
         const monthly = new Monthly({
-            base: 'https://www.accuweather.com',
-            page: '/en/gb/london/ec4a-2/august-weather/328328',
+            base: url.origin,
+            page: url.pathname,
             driver: driver
         });
         console.log('processing...')
