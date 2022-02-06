@@ -9,7 +9,7 @@ Scrapper is a template project to crawl data from sources that block usual crawl
 
 ```bash
 git clone https://github.com/mjBayati/scrapper.git
-cd crawler
+cd scrapper
 cp .env.example .env
 yarn install
 yarn start
