@@ -18,7 +18,7 @@ class Monthly extends Scrapper {
         return headers;
     }
 
-    async extractDailyFromInnerNodes(element) {
+    extractDailyFromInnerNodes(element) {
         const dayNumber = strings.trimText(this.dom(element).children('.monthly-panel-top').children('.date').text());
         const historyAverage = {
             high: strings.trimText(this.dom(element).children('.history-avg').children('.high').text()),
@@ -30,21 +30,28 @@ class Monthly extends Scrapper {
     async extractDailyWhetherInfo() {
         const daysWhetherList = this.dom('.monthly-daypanel');
         const dailyScrappers = [];
+        const data = [];
         daysWhetherList.each((idx, element) => {
             const url = this.dom(element).attr('href').trim();
-            dailyScrappers.push(new Daily({
-                base: this.base,
-                page: url,
-                driver: this.driver
-            }));
+            const briefData = this.extractDailyFromInnerNodes(element);
+            dailyScrappers.push({
+                    scrapper: new Daily({
+                        base: this.base ,
+                        page: url ,
+                        driver: this.driver
+                    }) ,
+                    briefData ,
+            });
         });
-        return Promise.map(dailyScrappers, async (scrapper) => scrapper.scrap());
+        for(const scrapper of dailyScrappers) {
+            data.push({detailed: await scrapper.scrapper.scrap(), brief: scrapper.briefData});
+        }
+        return data;
     }
 
     async extract() {
         const data = await this.extractDailyWhetherInfo();
         const headers = this.extractHeaders();
-        console.log(data);
         return {data, headers};
     }
 }

@@ -5,7 +5,7 @@ class Daily extends Scrapper{
     extractCloudInfo(element) {
         const result = {};
         const cloudInfo = cheerio.load(element);
-        cloudInfo('.panel-items').each((idx, element) => {
+        cloudInfo('.panel-item').each((idx, element) => {
             result[cloudInfo(element).text().trim()] = cloudInfo(element).children('.value').text().trim();
         })
         return result;
