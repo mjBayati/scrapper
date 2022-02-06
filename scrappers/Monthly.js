@@ -3,11 +3,6 @@ const strings = require('../util/strings');
 cheerio = require('cheerio');
 
 
-const utils = {
-    trimText(strInput) {
-        return strInput.replace(/\n/g,'').replace(/\t/g,'');
-    }
-}
 
 class Monthly extends Scrapper {
     extractHeaders() {
@@ -17,16 +12,16 @@ class Monthly extends Scrapper {
 
         monthlyHeaders.each((idx, element) => {
             cheerio.load(element).html();
-            headers.push(utils.trimText(this.dom(element).text()));
+            headers.push(strings.trimText(this.dom(element).text()));
         })
         return headers;
     }
 
     extractDayInfo(element) {
-        const dayNumber = utils.trimText(this.dom(element).children('.monthly-panel-top').children('.date').text());
+        const dayNumber = strings.trimText(this.dom(element).children('.monthly-panel-top').children('.date').text());
         const historyAverage = {
-            high: utils.trimText(this.dom(element).children('.history-avg').children('.high').text()),
-            low: utils.trimText(this.dom(element).children('.history-avg').children('.low').text()),
+            high: strings.trimText(this.dom(element).children('.history-avg').children('.high').text()),
+            low: strings.trimText(this.dom(element).children('.history-avg').children('.low').text()),
         }
         return {dayNumber, historyAverage};
     }
