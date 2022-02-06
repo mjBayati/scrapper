@@ -1,7 +1,8 @@
 const Scrapper = require('./Scrapper');
+const Daily = require('./Daily');
 const strings = require('../util/strings');
 cheerio = require('cheerio');
-
+const Promise = require('bluebird');
 
 
 class Monthly extends Scrapper {
@@ -17,7 +18,7 @@ class Monthly extends Scrapper {
         return headers;
     }
 
-    extractDayInfo(element) {
+    async extractDailyFromInnerNodes(element) {
         const dayNumber = strings.trimText(this.dom(element).children('.monthly-panel-top').children('.date').text());
         const historyAverage = {
             high: strings.trimText(this.dom(element).children('.history-avg').children('.high').text()),
@@ -26,20 +27,25 @@ class Monthly extends Scrapper {
         return {dayNumber, historyAverage};
     }
 
-    extractDailyWhetherInfo() {
+    async extractDailyWhetherInfo() {
         const daysWhetherList = this.dom('.monthly-daypanel');
-        const data = [];
+        const dailyScrappers = [];
         daysWhetherList.each((idx, element) => {
-            data.push(this.extractDayInfo(element));
+            const url = this.dom(element).attr('href').trim();
+            dailyScrappers.push(new Daily({
+                base: this.base,
+                page: url,
+                driver: this.driver
+            }));
         });
-        return data;
+        return Promise.map(dailyScrappers, async (scrapper) => scrapper.scrap());
     }
 
     async extract() {
-        await this.crawl();
-        const data = this.extractDailyWhetherInfo();
+        const data = await this.extractDailyWhetherInfo();
         const headers = this.extractHeaders();
-        console.log(data, headers);
+        console.log(data);
+        return {data, headers};
     }
 }
 
