@@ -1,5 +1,7 @@
+const Scrapper = require('./Scrapper');
+const strings = require('../util/strings');
 cheerio = require('cheerio');
-const crawler = require('../util/selenium');
+
 
 const utils = {
     trimText(strInput) {
@@ -7,15 +9,7 @@ const utils = {
     }
 }
 
-class Monthly {
-    constructor(url) {
-        this.url = url;
-    }
-
-    async crawl() {
-        this.dom = cheerio.load(await crawler(this.url));
-    }
-
+class Monthly extends Scrapper {
     extractHeaders() {
         const monthlyHeaders = this.dom('.monthly-header .day-text span');
 
@@ -46,7 +40,7 @@ class Monthly {
         return data;
     }
 
-    async extractInfo() {
+    async extract() {
         await this.crawl();
         const data = this.extractDailyWhetherInfo();
         const headers = this.extractHeaders();
