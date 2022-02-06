@@ -8,12 +8,14 @@
   },
   "scripts": {
     "test": "jest --coverage --noStackTrace --silent --verbose --forceExit",
-    "start": "nodemon index.js --unhandled-rejections=strict",
+    "start": "node --experimental-worker index.js --unhandled-rejections=strict",
     "lint": "eslint ."
   },
   "author": "John <m.javad.bayati97@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "selenium-webdriver": "^4.1.1",
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
